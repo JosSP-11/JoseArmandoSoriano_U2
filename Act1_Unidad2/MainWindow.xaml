@@ -5,79 +5,80 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Act1_Unidad2"
         mc:Ignorable="d"
-        Title="Guia de episodios" Height="400" Width="850">
+        Title="Guia de episodios" Height="400" Width="850" Background="Navy">
     <Window.DataContext>
         <local:ListadoEpisodios x:Name="listadoEpisodios"></local:ListadoEpisodios>
     </Window.DataContext>
-    <Grid>
-        <StackPanel Margin="70,0,0,0">
-            <TextBlock  Background="White" Foreground="White"  >hola</TextBlock>
-        </StackPanel>
-        <WrapPanel Margin="0,0,30,0" Background="Black">
-            <StackPanel  >
-                <StackPanel.Resources>
+    
+    <Grid Background="#191970">
+        <Grid>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=".2*"></ColumnDefinition>
+            <ColumnDefinition Width=".8*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".3*"></RowDefinition>
+            <RowDefinition Height=".7*"></RowDefinition>
+        </Grid.RowDefinitions>
+            <Border Grid.Column="0" Grid.Row="0" BorderBrush="navy" BorderThickness="5" Margin="10,5">
+        <Image Source="https://marketing4ecommerce.net/wp-content/uploads/2018/06/champions-logo.jpg"  Stretch="Fill"  ></Image>
+            </Border>
+            <Grid Grid.Column="1" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".3*"></ColumnDefinition>
+                    <ColumnDefinition Width=".7*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+            <Image  Source="https://e00-marca.uecdn.es/assets/multimedia/imagenes/2020/02/19/15821268505420.jpg" Stretch="Fill"  Margin="5" ></Image>
+                <TextBlock  Foreground="White" FontSize="30" FontWeight="Black" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="1" Margin="0,20" >UEFA CHAMPIOS LEAGUE</TextBlock>
+        </Grid>
+
+        <UniformGrid Columns="0" Rows="3" Grid.Column="0" Grid.Row="1" Margin="5">
+                <UniformGrid.Resources>
                     <Style TargetType="Button">
-                        <Setter Property="Width" Value="150"></Setter>
-                        <Setter Property="Foreground" Value="White"></Setter>
-                        <Setter Property="Background" Value="Black"></Setter>
-                        <Setter Property="Height" Value="40"></Setter>
+                        <Setter Property="Margin" Value="5,20"></Setter>
+                        <Setter Property="Foreground" Value="Black"></Setter>
+                        <Setter Property="Background" Value="White"></Setter>
                         <Setter Property="FontWeight" Value="Bold"></Setter>
-                        <Setter Property="FontSize" Value="10"></Setter>
+                        <Setter Property="FontSize" Value="20"></Setter>
+                        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                        
                     </Style>
-                </StackPanel.Resources>
-                <StackPanel Height="120"  >
-                    <Image Source="https://marketing4ecommerce.net/wp-content/uploads/2018/06/champions-logo.jpg" Margin="5" Stretch="Fill" Height="110" Width="130"></Image></StackPanel>
-                <Button  Command="{Binding VerAgregandoCommand}" CommandParameter="True">
-                    <StackPanel Orientation="Horizontal">
-                    <Image Source="IconoAgregar.png" Margin="0,5,0,5" ></Image>
-                        <TextBlock Text="Agregar" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                    </StackPanel>
-                </Button>
-                <Button  Click="Button_Click" >
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="IconoEliminar.png" Margin="0,5,0,5" ></Image>
-                        <TextBlock Text="Eliminar" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                    </StackPanel>
-                </Button>
-                <Button Command="{Binding VerEditarCommand}" CommandParameter="True">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="IconoEditar.png" Margin="5,5,0,5" ></Image>
-                        <TextBlock Text="Modificar" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                    </StackPanel>
-                </Button>
-            </StackPanel>
-        </WrapPanel>
-        <WrapPanel Margin="150,0,0,0" Background="Navy" >
-            <UniformGrid Rows="2">
-                <StackPanel Margin="0,0,0,10">
-                    <Border  BorderBrush="White"  BorderThickness="0,0,0,5"> 
-                    <WrapPanel >
-                        <Image  Source="https://e00-marca.uecdn.es/assets/multimedia/imagenes/2020/02/19/15821268505420.jpg" Stretch="Fill" Height="80" Width="150" Margin="10,10,10,8"></Image>
-                        <TextBlock  Foreground="White" FontSize="40" FontWeight="Black" HorizontalAlignment="Center" VerticalAlignment="Bottom">Camino hacia la final</TextBlock>
-                    </WrapPanel>
-                    </Border>
-                </StackPanel>
-                <StackPanel Background="White"  MaxHeight="800" Width="700" Margin="0">
-                <DataGrid ItemsSource="{Binding Episodio}" AutoGenerateColumns="False" CanUserAddRows="False" SelectedItem="{Binding Episodios}" Background="Beige">
-                    <DataGrid.Resources>
-                        <Style TargetType="DataGridColumnHeader" >
-                            <Setter Property="Background" Value="MediumBlue"></Setter>
-                            <Setter Property="FontSize" Value="15"></Setter>
-                            <Setter Property="FontWeight" Value="Bold" ></Setter>
+                </UniformGrid.Resources>
+            <Button  Command="{Binding VerAgregandoCommand}" CommandParameter="True">Agregar</Button>
+            <Button Command="{Binding VerEditarCommand}" CommandParameter="True">Editar</Button>
+            <Button  Click="Button_Click" >Eliminar</Button>
+        </UniformGrid>
+
+        <Grid Background="White"  Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1">
+                <DataGrid ItemsSource="{Binding Episodio}" AutoGenerateColumns="False" CanUserAddRows="False" SelectedItem="{Binding Episodios}" Background="#191970">
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridColumnHeader" >
+                        <Setter Property="Background" Value="MediumBlue"></Setter>
+                        <Setter Property="FontSize" Value="15"></Setter>
+                        <Setter Property="FontWeight" Value="Bold" ></Setter>
                             <Setter Property="Foreground" Value="White"></Setter>
                         </Style>
-                    </DataGrid.Resources>
-            <DataGrid.Columns >
-                <DataGridTextColumn Binding="{Binding Episodio}" Header="Episodio" Width="100"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Temporada}" Header="Temporada" Width="100"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Titulo}" Header="Titulo" Width=".4*"></DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding TituloEspañol}" Header="Titulo Español" Width=".4*"></DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding Descripcion}" Header="Descripcion" Width=".6*"></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-                </StackPanel >
-            </UniformGrid>
-        </WrapPanel>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Background" Value="#191970"></Setter>
+                            <Setter Property="Foreground" Value="Aqua"></Setter>
+                            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                            <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+                            <Setter Property="BorderBrush" Value="WhiteSmoke"></Setter>
+                        </Style>
+                </DataGrid.Resources>
+                <DataGrid.Columns >
+                    <DataGridTextColumn Binding="{Binding Episodio}" Header="Episodio" Width=".2*"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Temporada}" Header="Temporada" Width=".2*"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Titulo}" Header="Titulo" Width=".2*"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding TituloEspañol}" Header="Titulo Español" Width=".2*"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Descripcion}" Header="Descripcion" Width=".2*"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        
+    </Grid>
+    
         <local:AgregarEpisodio>
             <local:AgregarEpisodio.Style>
                 <Style TargetType="UserControl">

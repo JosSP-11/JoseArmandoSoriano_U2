@@ -28,25 +28,15 @@ namespace RecetasCocina
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Recetarios.CambiarVistaCommand.Execute(Vistas.Agregar);
-        }
-
-        private void ListBoxItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {           
-            if(List.SelectedItem!=null)
+            if (MessageBox.Show("¿Esta seguro de eliminar la receta seleccionada", "Confirme", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-            Receta r = (Receta)List.SelectedItem;
-             Nom.Text = r.Nombre;
-            Ing.Text= r.Ingrediente;
-            Pro.Text = r.Procedimiento;
-              imagen.Text =  r.Imagen;
-            
-              
+                Recetarios.EliminarCommand.Execute(null);
                 
+
             }
-            
         }
 
+        
        
 
         

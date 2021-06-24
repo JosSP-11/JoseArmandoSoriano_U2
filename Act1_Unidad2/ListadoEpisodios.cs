@@ -20,6 +20,7 @@ namespace Act1_Unidad2
         public ICommand EliminarCommand { get; set; }
         public ICommand EditarCommand { get; set; }
         public ICommand VerEditarCommand { get; set; }
+        public ICommand VerDetalleCommand { get; set; }
         public ListadoEpisodios()
         {
             Load();
@@ -28,6 +29,7 @@ namespace Act1_Unidad2
             EliminarCommand = new RelayCommand(Eliminar);
             VerEditarCommand = new RelayCommand<string>(VerEditar);
             EditarCommand = new RelayCommand(Editar);
+            
             
 
         }
@@ -46,7 +48,7 @@ namespace Act1_Unidad2
             {
                 Episodios = new Episodios();
             }
-            //Agregando = false;
+            
         }
         int posElementoEditar;
         private void VerEditar(string ver)
@@ -126,9 +128,9 @@ namespace Act1_Unidad2
                 return;
             }
             
-            //if (Episodio.Any(x => x.Episodio == Episodios.Episodio))
+          
                 Episodio.Add(Episodios);
-            //Episodio.Add(Episodios);
+            
             Save();
             Agregando = false;
 
@@ -139,6 +141,7 @@ namespace Act1_Unidad2
                 if (Episodios !=null)
                 {
                     Episodio.Remove(Episodios);
+                Save();
                 }
 }
         public bool Editando

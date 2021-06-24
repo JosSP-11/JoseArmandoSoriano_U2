@@ -5,103 +5,66 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RecetasCocina"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="800">
+        Title="MainWindow" Height="500" Width="350" Background="#ff6347">
     <Window.DataContext>
         <local:Recetario x:Name="Recetarios"></local:Recetario>
     </Window.DataContext>
     <Grid>
-        <StackPanel Margin="10" Background="Black" >
-            <StackPanel.Resources>
-                <Style TargetType="Button">
-                    <Setter Property="FontSize" Value="15"></Setter>
-                    <Setter Property="Background" Value="White"></Setter>
-                    <Setter Property="Width" Value="224"></Setter>
-                    <Setter Property="Margin" Value="5,3,0,3"></Setter>
-                    <Setter Property="FontSize" Value="20"></Setter>
-                </Style>
-            </StackPanel.Resources>
-            <DockPanel Margin="0,0,0,0">
-                <Border DockPanel.Dock="Top" BorderThickness="3" BorderBrush="Aqua">
-                    <TextBlock Foreground="Aqua" FontSize=" 30" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10">Recetas</TextBlock>
-                </Border>
-            </DockPanel>
-            <WrapPanel>
+        <Grid.Resources>
+            <Style TargetType="Button">
+                <Setter Property="Margin" Value="3"></Setter>
+                <Setter Property="Width" Value="70"></Setter>
+                <Setter Property="Foreground" Value="#ff6347"></Setter>
+                <Setter Property="Background" Value="White"></Setter>
+                <Setter Property="FontSize" Value="15"></Setter> 
+            </Style>
+        </Grid.Resources>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+                <RowDefinition Height=".2*"></RowDefinition>
+                <RowDefinition Height=".7*"></RowDefinition>
+            <RowDefinition Height=".1*"></RowDefinition>
+        </Grid.RowDefinitions>
+            <TextBlock FontSize="40" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold">MIS RECETAS</TextBlock>
+            <DataGrid Grid.Row="1" ItemsSource="{Binding Recetas}" AutoGenerateColumns="False" CanUserAddRows="False" SelectedItem="{Binding Receta}" Background="#ff7f50" HeadersVisibility="None" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" ColumnWidth="*">
+            <DataGrid.Columns>
+                <DataGridTextColumn  Binding="{Binding Nombre}" FontSize="20"></DataGridTextColumn>
+            </DataGrid.Columns>
                 
-                <Button Click="Button_Click" Margin="10,8" Width="210"  Background="Green" Foreground="White">AGREGAR</Button>
-            </WrapPanel>
             
-            <WrapPanel>
-                <StackPanel Margin="10,0,50,0">
-                <Border BorderThickness="3" BorderBrush="Aqua" >
-                    <ListBox  ItemsSource="{Binding Recetas}" Width="200" Height="300" Margin="3" MouseDoubleClick="ListBoxItem_MouseDoubleClick" Name="List">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel>
-                                    <StackPanel.ContextMenu>
-                                        <ContextMenu>
-                                            <MenuItem Header="Editar" Command="{Binding Source={x:Reference Recetarios},Path= MostrarEditarCommand}" CommandParameter="{Binding .}"></MenuItem>
-                                            <MenuItem Header="Eliminar" Command="{Binding Source={x:Reference Recetarios},Path= MostrarEliminarCommand}" CommandParameter="{Binding .}"></MenuItem>
-                                        </ContextMenu>
-                                    </StackPanel.ContextMenu>
-                                    <TextBlock Text="{Binding Nombre}" Width="200" Margin="5,2,0,0" FontSize="15" FontWeight="Bold" ></TextBlock>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </Border>
-                </StackPanel>
-                <Border BorderThickness="3" BorderBrush="Aqua" >
-                <ListBox  Width="400" Margin="2">
-                    <StackPanel Background="Aqua">
-                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="20" Margin="160,5,170,5">Datos</TextBlock>
-                    </StackPanel>
-                    <TextBlock  FontWeight="Bold" >Receta: "<TextBlock x:Name="Nom"></TextBlock>"</TextBlock>
-                        <StackPanel>
-                            <WrapPanel>
-                                <TextBlock  FontWeight="Bold"  >Ingredientes:</TextBlock>
-                                <TextBlock x:Name="Ing"  ></TextBlock> 
-                            </WrapPanel>
-                        </StackPanel>
-                        <StackPanel>
-                            <WrapPanel>
-                                <TextBlock   FontWeight="Bold">Procedimiento:</TextBlock>
-                                <TextBlock x:Name="Pro"  ></TextBlock> 
-                            </WrapPanel>
-                        </StackPanel>
-                        <TextBlock  FontWeight="Bold" Margin="0,10,0,0">URL de la imagen:  "<TextBlock x:Name="imagen"></TextBlock>"</TextBlock>
-                    <Image x:Name="img"  ></Image>
-                </ListBox>
-                </Border>
-            </WrapPanel>
-        </StackPanel>
-        <ContentControl >
-            <ContentControl.Style>
-                <Style TargetType="ContentControl">
+        </DataGrid>
+        <WrapPanel Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                <Button Command="{Binding VerAgregandoCommand}" CommandParameter="True">Agregar</Button>
+                <Button Command="{Binding VerEditarCommand}" CommandParameter="True">Editar</Button>
+            <Button Click="Button_Click">Eliminar</Button>
+        </WrapPanel>
+       
+     
+    </Grid>
+    
+        <local:AgregarRecetaUserControl>
+            <local:AgregarRecetaUserControl.Style>
+                <Style TargetType="UserControl">
+                    <Setter Property="Visibility" Value="Collapsed"></Setter>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding Vista}" Value="{x:Static local:Vistas.Agregar}">
-                            <Setter Property="Content">
-                                <Setter.Value>
-                                    <local:AgregarRecetaUserControl Background="#70000000"></local:AgregarRecetaUserControl>
-                                </Setter.Value>
-                            </Setter>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Vista}" Value="{x:Static local:Vistas.Eliminar}">
-                            <Setter Property="Content">
-                                <Setter.Value>
-                                    <local:EliminarRecetaUserControl Background="#70000000"></local:EliminarRecetaUserControl>
-                                </Setter.Value>
-                            </Setter>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Vista}" Value="{x:Static local:Vistas.Editar}">
-                            <Setter Property="Content">
-                                <Setter.Value>
-                                    <local:EditarRecetaUserControl Background="#70000000"></local:EditarRecetaUserControl>
-                                </Setter.Value>
-                            </Setter>
+                        <DataTrigger Binding="{Binding Agregando }" Value="True">
+                            <Setter Property="Visibility" Value="Visible"></Setter>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-            </ContentControl.Style>
-        </ContentControl>
+            </local:AgregarRecetaUserControl.Style>
+        </local:AgregarRecetaUserControl>
+        <local:EditarRecetaUserControl>
+            <local:EditarRecetaUserControl.Style>
+                <Style TargetType="UserControl">
+                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Editando}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </local:EditarRecetaUserControl.Style>
+        </local:EditarRecetaUserControl>
     </Grid>
 </Window>
